@@ -15,15 +15,15 @@ var util = require('util');
 var validateJS = utils.validateJS;
 var RTCodeError = rtError.RTCodeError;
 
-var repeatTemplate = _.template('_.map(<%= collection %>,<%= repeatFunction %>.bind(<%= repeatBinds %>))');
+var repeatTemplate = _.template('map(<%= collection %>,<%= repeatFunction %>.bind(<%= repeatBinds %>))');
 var ifTemplate = _.template('((<%= condition %>)?(<%= body %>):null)');
-var propsTemplateSimple = _.template('_.assign({}, <%= generatedProps %>, <%= rtProps %>)');
+var propsTemplateSimple = _.template('assign({}, <%= generatedProps %>, <%= rtProps %>)');
 var propsTemplate = _.template('mergeProps( <%= generatedProps %>, <%= rtProps %>)');
 
 const propsMergeFunction = `function mergeProps(inline,external) {
-    var res = _.assign({},inline,external)
+    var res = assign({},inline,external)
     if (inline.hasOwnProperty('style')) {
-        res.style = _.defaults(res.style, inline.style);
+        res.style = defaults(res.style, inline.style);
     }
     if (inline.hasOwnProperty('className') && external.hasOwnProperty('className')) {
         res.className = external.className + ' ' + inline.className;
@@ -32,7 +32,7 @@ const propsMergeFunction = `function mergeProps(inline,external) {
 }
 `;
 
-var classSetTemplate = _.template('_.keys(_.pick(<%= classSet %>, _.identity)).join(" ")');
+var classSetTemplate = _.template('keys(pick(<%= classSet %>, identity)).join(" ")');
 
 function getTagTemplateString(simpleTagTemplate, shouldCreateElement) {
     if (simpleTagTemplate) {
